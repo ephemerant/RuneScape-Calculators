@@ -49,8 +49,9 @@
         <hr>
 
         <span ng-if="tasksNeeded !== -1">
-            You must complete <b>{{ tasksNeeded }} more task{{ tasksNeeded === 1 ? '' : 's' }}</b> from this master to
-            reach your target.
+            You must complete <b>{{ tasksNeeded }} more task{{ tasksNeeded === 1 ? '' : 's' }}</b> from
+            {{ masterUsed.indexOf(' or ') !== -1 ? 'these masters' : 'this master' }}
+            to reach your target.
         </span>
 
         <span ng-if="tasksNeeded === -1">

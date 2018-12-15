@@ -31,6 +31,8 @@ angular.module('app', []).controller('main', function ($scope) {
         }
         else
             vm.tasksNeeded = -1;
+
+        vm.masterUsed = vm.master; // Store the master used for the calculation
     };
 
     // Get points rewarded for a given task streak
