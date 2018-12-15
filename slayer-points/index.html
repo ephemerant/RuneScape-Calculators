@@ -1,0 +1,58 @@
+<head>
+    <title>Slayer Point Calculator</title>
+    <meta name="description" content="A calculator for RuneScape to determine the amount of slayer tasks needed to obtain a certain amount of slayer points.">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body ng-app="app" ng-controller="main" ng-cloak>
+    <form ng-submit="calculate()">
+        <label>
+            Current slayer points
+            <input ng-model="points" type="number" min="0" required>
+        </label>
+
+        <label>
+            Target slayer points
+            <input ng-model="target" type="number" min="0" required>
+        </label>
+
+        <label>
+            Current task streak
+            <input ng-model="tasks" type="number" min="0" required>
+        </label>
+
+        <label>
+            Slayer master
+            <select ng-model="master">
+                <option ng-repeat="(master, points) in masters">{{ master }}</option>
+            </select>
+        </label>
+
+        <div class="two-col">
+            <label>
+                <input ng-model="smokingKills" type="checkbox">
+                Smoking Kills
+            </label>
+
+            <label ng-if="master === 'Duradel or Lapalok'">
+                <input ng-model="eliteKaramja" type="checkbox">
+                Elite Karamja tasks
+            </label>
+        </div>
+
+        <button>Calculate</button>
+    </form>
+
+    <div ng-if="tasksNeeded !== undefined">
+        <hr>
+
+        You must complete <b>{{ tasksNeeded }} more task{{ tasksNeeded === 1 ? '' : 's' }}</b> to reach your target.
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.min.js" integrity="sha256-QRJz3b0/ZZC4ilKmBRRjY0MgnVhQ+RR1tpWLYaRRjSo="
+    crossorigin="anonymous"></script>
+
+<script src="app.slayer.js"></script>

@@ -1,0 +1,39 @@
+[ng-cloak] {
+    display: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+label > *:not([type="checkbox"]) {
+    width: 100%;
+    font-weight: normal;
+}
+
+.two-col {
+    display: flex;
+    flex-flow: row;
+}
+
+.two-col > * {
+    width: 50%;
+    margin-left: 5px;
+}
+
+.two-col > *:first-of-type {
+    margin-right: 5px;
+    margin-left: 0px;
+}
