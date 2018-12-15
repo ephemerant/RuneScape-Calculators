@@ -18,15 +18,19 @@ angular.module('app', []).controller('main', function ($scope) {
 
     // Calculate remaining tasks to reach slayer point target
     vm.calculate = function () {
-        saveData()
+        saveData();
 
-        var points = vm.points;
-        var tasks = vm.tasks;
+        if (vm.master !== 'Turael or Spria') {
+            var points = vm.points;
+            var tasks = vm.tasks;
 
-        while (points < vm.target)
-            points += getPoints(++tasks);
+            while (points < vm.target)
+                points += getPoints(++tasks);
 
-        vm.tasksNeeded = tasks - vm.tasks;
+            vm.tasksNeeded = tasks - vm.tasks;
+        }
+        else
+            vm.tasksNeeded = -1;
     };
 
     // Get points rewarded for a given task streak

@@ -48,7 +48,14 @@
     <div ng-if="tasksNeeded !== undefined">
         <hr>
 
-        You must complete <b>{{ tasksNeeded }} more task{{ tasksNeeded === 1 ? '' : 's' }}</b> to reach your target.
+        <span ng-if="tasksNeeded !== -1">
+            You must complete <b>{{ tasksNeeded }} more task{{ tasksNeeded === 1 ? '' : 's' }}</b> from this master to
+            reach your target.
+        </span>
+
+        <span ng-if="tasksNeeded === -1">
+            These masters <b>do not award slayer points</b> and assignments do not contribute to completion streak.
+        </span>
     </div>
 </body>
 
