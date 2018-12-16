@@ -7,20 +7,38 @@
 }
 
 body {
-    max-width: 600px;
+    max-width: 1000px;
     margin: auto;
     padding: 20px;
+    font-family: helvetica;
+    background: #071022;
+    color: #cbd9f4;
+    font-family: 'IBM Plex Sans','Helvetica Neue','Arial',sans-serif;
 }
 
 label {
     display: block;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
 }
 
 label > *:not([type="checkbox"]) {
     width: 100%;
-    font-weight: normal;
+    font-weight: normal;    
+    display: block;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #a2a9b1;
+    border-radius: 2px;
+    padding: 0.5em;
+    margin-top: 5px;
+}
+
+label > *:not([type="checkbox"]):focus {
+    outline: 0;
+    border-color: #36c;
+    box-shadow: inset 0 0 0 1px #36c;
 }
 
 .two-col {
@@ -36,4 +54,76 @@ label > *:not([type="checkbox"]) {
 .two-col > *:first-of-type {
     margin-right: 5px;
     margin-left: 0px;
+}
+
+.content {
+    padding: 15px;
+    background: #172136;
+    color: #cbd9f4;
+}
+
+b {
+    color: #8cabe6;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #596e96;
+}
+
+button {
+    color: #cbd9f4;
+    background-color: #36c;
+    border-color: #36c;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+    padding: 0.5em 0.85em;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.info {
+    background: #313e59;
+    border-left: 15px solid #222e45;
+    margin-top: 15px;
+    padding: 15px;
+}
+
+h1 {
+    font-size: 1.8em;
+    border-bottom: 1px solid #596e96;
+    padding-bottom: 4px;
+    margin: 0;
+    margin-bottom: 15px;
+    font-family: 'PT Serif','Palatino','Georgia',serif;
+}
+
+.cards {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.cards > a {
+    width: 300px;
+    font-weight: bold;
+    font-size: 1.5em;
+    background: #222e45;
+    color: #cbd9f4;
+    text-decoration: none;
+    padding: 15px;
+    margin: 5px;
+}
+
+.cards > a:hover {
+    background: #293753;
+}
+
+.cards .description {
+    display: block;
+    font-weight: normal;
+    font-size: 16px;
+    margin-top: 4px;
+    border-top: 1px solid #596e96;
+    padding-top: 5px;
 }

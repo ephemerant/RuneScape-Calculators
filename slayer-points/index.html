@@ -4,10 +4,18 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <link rel="stylesheet" href="../style.css">
+
+    <style>
+        body {
+            max-width: 450px;
+        }
+    </style>
 </head>
 
 <body ng-app="app" ng-controller="main" ng-cloak>
-    <form ng-submit="calculate()">
+    <form ng-submit="calculate()" class="content">
+        <h1>Slayer Point Calculator</h1>
+
         <label>
             Current slayer points
             <input ng-model="points" type="number" min="0" required>
@@ -43,21 +51,19 @@
         </div>
 
         <button>Calculate</button>
+
+        <div class="info" ng-if="tasksNeeded !== undefined">
+            <span ng-if="tasksNeeded !== -1">
+                You must complete <b>{{ tasksNeeded }} more task{{ tasksNeeded === 1 ? '' : 's' }}</b> from
+                {{ masterUsed.indexOf(' or ') !== -1 ? 'these masters' : 'this master' }}
+                to reach your target.
+            </span>
+
+            <span ng-if="tasksNeeded === -1">
+                These masters <b>do not award slayer points</b> and their assignments do not contribute towards your completion streak.
+            </span>
+        </div>
     </form>
-
-    <div ng-if="tasksNeeded !== undefined">
-        <hr>
-
-        <span ng-if="tasksNeeded !== -1">
-            You must complete <b>{{ tasksNeeded }} more task{{ tasksNeeded === 1 ? '' : 's' }}</b> from
-            {{ masterUsed.indexOf(' or ') !== -1 ? 'these masters' : 'this master' }}
-            to reach your target.
-        </span>
-
-        <span ng-if="tasksNeeded === -1">
-            These masters <b>do not award slayer points</b> and assignments do not contribute to completion streak.
-        </span>
-    </div>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.min.js" integrity="sha256-QRJz3b0/ZZC4ilKmBRRjY0MgnVhQ+RR1tpWLYaRRjSo="
