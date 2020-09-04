@@ -83,6 +83,11 @@ button {
     font-weight: bold;
 }
 
+button.purple {
+    background-color: #63c;
+    border-color: #63c;
+}
+
 .info {
     background: #313e59;
     border-left: 15px solid #222e45;

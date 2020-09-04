@@ -1,0 +1,120 @@
+<head>
+    <title>Manual Auto-Cycle Timer</title>
+    <meta name="description"
+        content="A timer for RuneScape to play a sound at the interval that empowered manual auto-cycles change (41.41 seconds).">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link rel="stylesheet" href="../style.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <style>
+        body {
+            max-width: 450px;
+        }
+
+        .timer {
+            font-family: consolas;
+            margin-bottom: 16px;
+            font-size: 200%;
+            letter-spacing: 4px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content" id="app" style="display: none;">
+        <h1>Manual Auto-Cycle Timer</h1>
+
+        <div class="timer">
+            {{ remainingTime | time(1) }}
+        </div>
+
+        <div style="display: flex; margin-bottom: 16px; font-size: 32px;">
+            <i class="fa fa-volume-down" aria-hidden="true"></i>
+
+            <input type="range" min="0" max="1" step="0.01" v-model="volume" style="width: 100%; margin-left: 8px; margin: 0 16px;">
+
+            <i class="fa fa-volume-up" aria-hidden="true"></i>
+        </div>
+
+        <button @click="start">Start</button>
+        <button @click="stop" class="purple">Stop</button>
+    </div>
+</body>
+
+<script src="../lib/vue.min.js"></script>
+
+<script>
+    const coinSound = new Audio('../sounds/mario-coin-sound.mp3');
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            timer: null,
+            remainingTime: 0,
+            originalTitle: document.title,
+            volume: localStorage.cycleVolume === undefined ? 0.5 : localStorage.cycleVolume
+        },
+        created() {
+            document.getElementById('app').style.display = null;
+        },
+        methods: {
+            start() {
+                this.stop();
+
+                const windowSize = 41.41 * 1000;
+
+                let nextTime = new Date();
+                nextTime.setTime(nextTime.getTime() + windowSize);
+
+                this.timer = setInterval(() => {
+                    const currentTime = new Date();
+                    let remainingTime = nextTime - currentTime;
+
+                    if (remainingTime <= 0) {
+                        coinSound.volume = (+this.volume) ** 2;
+                        coinSound.play()
+
+                        nextTime.setTime(nextTime.getTime() + windowSize);
+
+                        remainingTime = windowSize;
+                    }
+
+                    this.remainingTime = remainingTime / 1000;
+
+                    document.title = Math.floor(this.remainingTime);
+                }, 10)
+            },
+            stop() {
+                clearInterval(this.timer);
+                this.timer = null;
+                this.remainingTime = 0;
+                document.title = this.originalTitle;
+            }
+        },
+        watch: {
+            volume() {
+                localStorage.cycleVolume = this.volume;
+            }
+        },
+        filters: {
+            time(value, decimals) {
+                const parts = value.toString().split('.');
+
+                if (parts.length === 1)
+                    parts.push('');
+
+                if (parts[1].length > decimals)
+                    parts[1] = parts[1].slice(0, decimals);
+
+                while (parts[1].length < decimals)
+                    parts[1] += '0';
+
+                return parts.join('.');
+            }
+        }
+    })
+</script>
